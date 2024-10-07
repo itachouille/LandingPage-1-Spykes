@@ -6,13 +6,13 @@ import Footer from "./components/Footer";
 
 function App() {
   return (
-    <>
+    <div className="overflow-hidden">
       <Header />
       <Hero />
       <Company />
       <Cards />
       <Footer />
-    </>
+    </div>
   );
 }
 

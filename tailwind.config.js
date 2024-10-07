@@ -8,10 +8,11 @@ export default {
     extend: {
       colors: {
         color: {
-          14: "#0B081C",
-          15: "#ECECEC",
-          16: "#BB9BFF",
-          17: "#0B0121",
+          1: "#FFFFFF",
+          2: "#ECECEC",
+          3: "#0B0121",
+          4: "#0B081C",
+          5: "#BB9BFF",
         },
       },
       boxShadow: {
@@ -57,10 +58,11 @@ export default {
       addBase({});
       addComponents({
         ".container": {
-          "@apply mx-auto mb-[50px]": {},
+          "@apply max-w-[77.5rem] mx-auto px-5 md:px-10 lg:px-15 xl:max-w-[87.5rem]":
+            {},
         },
         ".h1": {
-          "@apply text-[2.5rem] leading-[3.25rem] md:text-[2.75rem] md:leading-[3.75rem] lg:text-[3.25rem] lg:leading-[4.0625rem] xl:text-[3.75rem] xl:leading-[4.5rem]":
+          "@apply text-[2.5rem] leading-[3.25rem] md:text-[2.75rem] md:leading-[3.75rem] lg:text-[3.25rem] lg:leading-[4.0625rem] xl:text-[4.5rem] xl:leading-[4.5rem]":
             {},
         },
         ".h2": {
@@ -93,11 +95,11 @@ export default {
           "@apply text-lg leading-normal": {},
         },
         ".button": {
-          "@apply py-2 px-5 rounded-3xl text-xs text-color-14 bg-color-15 tracking-wider":
+          "@apply py-1 px-2 rounded-3xl text-xs text-color-4 bg-color-2 tracking-wider hover:text-color-2 hover:bg-transparent hover:border":
             {},
         },
         ".button-ghost": {
-          "@apply py-2 px-5 rounded-3xl text-xs text-color-15 bg-transparent border tracking-wider":
+          "@apply py-1 px-2 rounded-3xl text-xs text-color-2 bg-transparent border tracking-wider hover:text-color-4 hover:bg-color-2":
             {},
         },
       });
