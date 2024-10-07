@@ -2,16 +2,21 @@ const Company = () => {
   return (
     <section className="py-10 lg:py-16 xl:py-20">
       <div className="container">
-        <div className="mx-auto flex max-w-5xl flex-col content-center items-center gap-6">
-          <p className="text-color-1/80">
+        <div className="body-1 m-auto flex max-w-5xl flex-col items-center gap-6">
+          <p className="text-center text-color-1/80">
             Trusted by teams at over 1,000 of the world’s leading organizations
           </p>
-          <img src="/Logos.png" alt="logo's compagny" />
-          <div className="max-w-[470px] py-4 pt-8 text-center">
-            <div className="max-w-[450px]">
-              <h2 className="text-color-2 h2">
+          <img
+            src="/Logos.png"
+            alt="Logos of companies that trust Vaultflow"
+            loading="lazy"
+            className="h-auto w-full max-w-[330px] scale-150 lg:max-w-[1000px]"
+          />
+          <div className="mt-5 max-w-[500px] text-center lg:mt-16">
+            <div>
+              <p className="h2 text-color-2">
                 Features that work for your future.
-              </h2>
+              </p>
             </div>
             <div className="pt-4">
               <p className="text-color-2">

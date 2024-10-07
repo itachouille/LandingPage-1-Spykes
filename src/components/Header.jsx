@@ -1,103 +1,99 @@
-import { navigation } from "../constants/index";
-import MenuSvg from "../assets/svg/MenuSvg";
-import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useState, useCallback, useEffect } from "react";
 import { disablePageScroll, enablePageScroll } from "scroll-lock";
+import { navigation } from "../constants";
+import MobileMenuToggle from "./MobileMenuToggle";
 
-const Header = () => {
-  const pathname = useLocation();
-  const [openNavigation, setOpenNavigation] = useState(false);
+export default function Header() {
+  const [isNavOpen, setIsNavOpen] = useState(false);
 
-  const toggleNavigation = () => {
-    if (openNavigation) {
-      setOpenNavigation(false);
+  const toggleNavigation = useCallback(() => {
+    setIsNavOpen((prev) => {
+      const newState = !prev;
+      newState ? disablePageScroll() : enablePageScroll();
+      return newState;
+    });
+  }, []);
+
+  const handleNavClick = useCallback(() => {
+    if (isNavOpen) {
       enablePageScroll();
-    } else {
-      setOpenNavigation(true);
-      disablePageScroll();
+      setIsNavOpen(false);
     }
-  };
+  }, [isNavOpen]);
 
-  const handleClick = () => {
-    if (!openNavigation) return;
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024 && isNavOpen) {
+        enablePageScroll();
+        setIsNavOpen(false);
+      }
+    };
 
-    enablePageScroll();
-    setOpenNavigation(false);
-  };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [isNavOpen]);
 
   return (
     <header className="relative">
-      <div
-        className="absolute -z-3 size-full h-screen bg-cover bg-center"
-        style={{
-          backgroundImage: "url('/header-bg.jpg')",
-        }}
-        role="img"
-        aria-label="Decorative background image showing abstract visuals."
-      />
-
-      <div
-        className={`${openNavigation ? "relative top-4 mx-2 h-screen rounded-3xl bg-color-4/50 px-2 py-3 backdrop-blur-md" : "relative top-4 mx-2 rounded-3xl bg-color-4/50 px-2 py-3 backdrop-blur-md"}`}
-      >
-        <div
-          className={`${openNavigation ? "flex flex-col" : "flex w-full items-center justify-between px-2"}`}
-        >
-          <div
-            className={`${openNavigation ? "mx-4 flex justify-between" : "mx-4 flex w-full justify-between"}`}
-          >
-            <a href="#hero" className="flex" aria-label="Vaultflow Home">
+      <div className="mx-4 mt-8 rounded-2xl bg-color-3/50 px-4 sm:px-6 lg:mx-8 lg:px-8">
+        <div className="flex items-center justify-between py-2 lg:py-4">
+          <div className="flex items-center">
+            <a
+              href="/"
+              className="flex items-center"
+              aria-label="Vaultflow Logo"
+            >
               <img
                 src="/logo.png"
                 width={22}
                 height={22}
                 alt="Vaultflow logo"
-                loading="lazy"
+                className="mr-2"
               />
-              <span className="ml-2">Vaultflow</span>
+              <span className="text-xl font-semibold">Vaultflow</span>
             </a>
-            <button
-              className="lg:hidden"
-              onClick={toggleNavigation}
-              aria-label="Toggle navigation menu"
-            >
-              <MenuSvg openNavigation={openNavigation} />
-            </button>
           </div>
-          <nav
-            className={`${
-              openNavigation ? "flex" : "hidden"
-            } h-full lg:static lg:mx-auto lg:flex lg:bg-transparent`}
-          >
-            <div className="relative z-2 m-auto flex flex-col items-center justify-center lg:flex-row">
-              {navigation.map((item) => (
-                <a
-                  className={`relative block text-2xl text-color-1 transition-colors hover:text-color-1 ${
-                    item.onlyMobile ? "lg:hidden" : ""
-                  } p-6 md:py-8 lg:-mr-0.25 lg:text-xs lg:font-semibold ${
-                    item.url === pathname.hash
-                      ? "z-2 lg:text-color-1"
-                      : "lg:text-color-1/50"
-                  } lg:leading-5 lg:hover:text-color-1 xl:px-12`}
-                  key={item.id}
-                  href={item.url}
-                  onClick={handleClick}
-                  aria-label={item.title}
-                >
-                  {item.title}
-                </a>
-              ))}
+          <div className="flex items-center">
+            <nav
+              className={`${
+                isNavOpen
+                  ? "absolute inset-x-0 top-0 z-3 h-screen bg-color-4 p-12"
+                  : "hidden"
+              } lg:block`}
+              aria-label="Main navigation"
+            >
+              <ul className="flex flex-col space-y-4 lg:flex-row lg:space-x-8 lg:space-y-0">
+                {navigation.map((item) => (
+                  <li key={item.id}>
+                    <a
+                      href={item.url}
+                      className="text-lg transition-colors hover:text-color-2 lg:text-base"
+                      onClick={handleNavClick}
+                    >
+                      {item.title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+            <div className="ml-4 flex items-center">
+              <a
+                href="/download"
+                className="hidden rounded-full bg-color-1 px-4 py-2 font-medium text-color-3 transition-colors hover:bg-color-2 lg:block"
+                aria-label="Download Vaultflow App"
+              >
+                Download the app
+              </a>
+              <div className="z-10 lg:hidden">
+                <MobileMenuToggle
+                  isOpen={isNavOpen}
+                  onClick={toggleNavigation}
+                />
+              </div>
             </div>
-          </nav>
-          <button
-            className="button hidden lg:block"
-            aria-label="Download Vaultflow App"
-          >
-            Download the app
-          </button>
+          </div>
         </div>
       </div>
     </header>
   );
-};
-
-export default Header;
+}
