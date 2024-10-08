@@ -6,7 +6,7 @@ const Hero = () => {
           <button className="button-ghost border-white/40">
             We just raised $20M in Series B. Learn more
           </button>
-          <h1 className="h1 bg-gradient-to-br from-color-2 to-transparent bg-clip-text text-transparent">
+          <h1 className="h1 bg-gradient-to-br from-color-1 to-transparent bg-clip-text text-transparent">
             Modern analytics <br /> for the modern world
           </h1>
           <p className="max-w-lg text-color-2/50">

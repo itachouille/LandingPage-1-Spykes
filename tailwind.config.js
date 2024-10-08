@@ -95,7 +95,7 @@ export default {
           "@apply text-lg leading-normal": {},
         },
         ".button": {
-          "@apply py-3 px-6 rounded-3xl text-xs text-color-4 bg-color-2 tracking-wider hover:text-color-2 hover:bg-transparent hover:border":
+          "@apply py-3 px-6 rounded-3xl text-xs text-color-4 bg-color-2 tracking-wider hover:text-color-2 hover:bg-transparent border":
             {},
         },
         ".button-ghost": {

@@ -1,41 +1,32 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState } from "react";
 import { disablePageScroll, enablePageScroll } from "scroll-lock";
 import { navigation } from "../constants";
-import MobileMenuToggle from "./MobileMenuToggle";
+import { useLocation } from "react-router-dom";
+import MenuSvg from "../assets/svg/MenuSvg";
 
 export default function Header() {
-  const [isNavOpen, setIsNavOpen] = useState(false);
+  const pathname = useLocation();
+  const [openNavigation, setOpenNavigation] = useState(false);
 
-  const toggleNavigation = useCallback(() => {
-    setIsNavOpen((prev) => {
-      const newState = !prev;
-      newState ? disablePageScroll() : enablePageScroll();
-      return newState;
-    });
-  }, []);
-
-  const handleNavClick = useCallback(() => {
-    if (isNavOpen) {
+  const toggleNavigation = () => {
+    if (openNavigation) {
+      setOpenNavigation(false);
       enablePageScroll();
-      setIsNavOpen(false);
+    } else {
+      setOpenNavigation(true);
+      disablePageScroll();
     }
-  }, [isNavOpen]);
+  };
 
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 1024 && isNavOpen) {
-        enablePageScroll();
-        setIsNavOpen(false);
-      }
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, [isNavOpen]);
+  const handleClick = () => {
+    if (!openNavigation) return;
+    enablePageScroll();
+    setOpenNavigation(false);
+  };
 
   return (
     <header className="relative">
-      <div className="mx-4 mt-8 rounded-2xl bg-color-3/50 px-4 sm:px-6 lg:mx-8 lg:px-8">
+      <div className="mx-4 mt-10 rounded-2xl bg-color-3/50 px-4 sm:px-6 lg:mx-8 lg:px-8">
         <div className="flex items-center justify-between py-2 lg:py-4">
           <div className="flex items-center">
             <a
@@ -53,43 +44,39 @@ export default function Header() {
               <span className="text-xl font-semibold">Vaultflow</span>
             </a>
           </div>
-          <div className="flex items-center">
+          <div className="flex items-center lg:w-3/5 lg:justify-between">
             <nav
               className={`${
-                isNavOpen
-                  ? "absolute inset-x-0 top-0 z-3 h-screen bg-color-4 p-12"
+                openNavigation
+                  ? "absolute inset-x-0 -top-10 z-3 h-screen bg-color-4/90"
                   : "hidden"
               } lg:block`}
               aria-label="Main navigation"
             >
-              <ul className="flex flex-col space-y-4 lg:flex-row lg:space-x-8 lg:space-y-0">
+              <div className="flex h-full flex-col justify-center space-y-4 text-center lg:flex-row lg:space-x-8 lg:space-y-0">
                 {navigation.map((item) => (
-                  <li key={item.id}>
-                    <a
-                      href={item.url}
-                      className="text-lg transition-colors hover:text-color-2 lg:text-base"
-                      onClick={handleNavClick}
-                    >
-                      {item.title}
-                    </a>
-                  </li>
+                  <a
+                    key={item.id}
+                    href={item.url}
+                    className={`text-5xl transition-colors hover:text-color-2 lg:text-base ${
+                      item.url === pathname.hash
+                        ? "z-2 lg:text-color-1"
+                        : "lg:text-color-1/50"
+                    }`}
+                    onClick={handleClick}
+                  >
+                    {item.title}
+                  </a>
                 ))}
-              </ul>
+              </div>
             </nav>
             <div className="ml-4 flex items-center">
-              <a
-                href="/download"
-                className="hidden rounded-full bg-color-1 px-4 py-2 font-medium text-color-3 transition-colors hover:bg-color-2 lg:block"
-                aria-label="Download Vaultflow App"
-              >
+              <button className="button hidden lg:block">
                 Download the app
-              </a>
-              <div className="z-10 lg:hidden">
-                <MobileMenuToggle
-                  isOpen={isNavOpen}
-                  onClick={toggleNavigation}
-                />
-              </div>
+              </button>
+              <button onClick={toggleNavigation} className="z-10 lg:hidden">
+                <MenuSvg openNavigation={openNavigation} />
+              </button>
             </div>
           </div>
         </div>

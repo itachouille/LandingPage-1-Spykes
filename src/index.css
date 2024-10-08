@@ -13,7 +13,7 @@
 @layer base {
   html,
   body {
-    @apply bg-color-3 font-sans text-base text-color-1;
+    @apply bg-color-3 font-sans text-base text-color-2;
     height: 100%;
     margin: 0;
     padding: 0;
