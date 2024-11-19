@@ -1,4 +1,8 @@
 import Card from "./Card";
+import icon1 from "../assets/icons/icon-1.svg";
+import icon2 from "../assets/icons/icon-2.svg";
+import icon3 from "../assets/icons/icon-3.svg";
+import code from "../assets/code.png";
 
 const Cards = () => {
   return (
@@ -8,7 +12,7 @@ const Cards = () => {
           <div className="grid w-full grid-cols-1 gap-8 md:grid-cols-2 lg:gap-12">
             <div>
               <Card
-                icon="/icon-1.svg"
+                icon={icon1}
                 title="Analytics Dashboard"
                 description="Our Analytics Dashboard provides a clear and intuitive interface for you to easily analyze your data. From customizable graphs to real-time data updates, our dashboard offers everything you need to gain valuable insights."
                 link="View dashboard"
@@ -16,7 +20,7 @@ const Cards = () => {
             </div>
             <div>
               <Card
-                icon="/icon-2.svg"
+                icon={icon2}
                 title="Digital Credit Tokens"
                 description="Reward your customers and incentivize engagement with our innovative digital credit tokens. Our tokens can be customized to match your branding, and are a flexible and scalable way to drive customer loyalty and encourage repeat business."
                 link="View tokens"
@@ -25,7 +29,7 @@ const Cards = () => {
           </div>
           <div className="w-full justify-between rounded-3xl border-t border-color-1/20 p-15 shadow-cardShadow lg:flex">
             <div className="mb-12 lg:mb-0 lg:w-2/5">
-              <img src="/icon-3.svg" alt="icon" />
+              <img src={icon3} alt="icon" />
               <h4 className="h4 py-4 text-color-2">Code collaboration</h4>
               <p className="pb-4 text-color-2/80">
                 Our advanced code synchronization technology ensures that your
@@ -41,7 +45,7 @@ const Cards = () => {
             </div>
             <div className="rounded-3xl border-t border-color-1/20 shadow-cardShadow lg:w-[45%]">
               <img
-                src="/Image.png"
+                src={code}
                 alt="image"
                 loading="lazy"
                 className="h-auto w-full"

@@ -1,3 +1,5 @@
+import hero from "../assets/hero.png";
+
 const Hero = () => {
   return (
     <section className="py-10 lg:py-16 xl:py-20">
@@ -21,7 +23,7 @@ const Hero = () => {
         <div className="mt-10">
           <img
             className="size-full"
-            src="/hero-image.svg"
+            src={hero}
             alt="dashboard image"
             loading="lazy"
           />
