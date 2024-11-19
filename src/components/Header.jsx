@@ -44,7 +44,7 @@ export default function Header() {
               <span className="text-xl font-semibold">Vaultflow</span>
             </a>
           </div>
-          <div className="flex items-center lg:w-3/5 lg:justify-between">
+          <div className="flex items-center lg:justify-between">
             <nav
               className={`${
                 openNavigation
@@ -70,14 +70,12 @@ export default function Header() {
                 ))}
               </div>
             </nav>
-            <div className="ml-4 flex items-center">
-              <button className="button hidden lg:block">
-                Download the app
-              </button>
-              <button onClick={toggleNavigation} className="z-10 lg:hidden">
-                <MenuSvg openNavigation={openNavigation} />
-              </button>
-            </div>
+          </div>
+          <div className="ml-4 flex items-center">
+            <button className="button hidden lg:block">Download the app</button>
+            <button onClick={toggleNavigation} className="z-10 lg:hidden">
+              <MenuSvg openNavigation={openNavigation} />
+            </button>
           </div>
         </div>
       </div>

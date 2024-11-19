@@ -1,5 +1,4 @@
 /** @type {import('tailwindcss').Config} */
-import { fontFamily } from "tailwindcss/defaultTheme";
 import plugin from "tailwindcss/plugin";
 
 export default {
@@ -19,7 +18,7 @@ export default {
         cardShadow: "0px 0px 15px 10px rgba(187, 155, 255, 0.15)",
       },
       fontFamily: {
-        sans: ["var(--font-montserrat)", ...fontFamily.sans],
+        sans: ["Montserrat", "sans-serif"],
       },
       letterSpacing: {
         tagline: ".15em",
@@ -95,11 +94,11 @@ export default {
           "@apply text-lg leading-normal": {},
         },
         ".button": {
-          "@apply py-3 px-6 rounded-3xl text-xs text-color-4 bg-color-2 tracking-wider hover:text-color-2 hover:bg-transparent border":
+          "@apply py-3 px-6 rounded-3xl text-xs text-color-4 bg-color-2 tracking-wider transition ease-in-out hover:scale-110 duration-300 hover:text-color-2 hover:bg-transparent border":
             {},
         },
         ".button-ghost": {
-          "@apply py-3 px-6 rounded-3xl text-xs text-color-2 bg-transparent border tracking-wider hover:text-color-4 hover:bg-color-2":
+          "@apply py-3 px-6 rounded-3xl text-xs text-color-2 bg-transparent border tracking-wider transition ease-in-out hover:scale-110 duration-300  hover:text-color-4 hover:bg-color-2":
             {},
         },
       });
